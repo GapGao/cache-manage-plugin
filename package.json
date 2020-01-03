@@ -1,6 +1,6 @@
 {
   "name": "@mokahr/cache-manage-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A webpack plugin used to mange muilti dependencies loader/plugin cache",
   "main": "CacheManagePlugin.js",
   "scripts": {
