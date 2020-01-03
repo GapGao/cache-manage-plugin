@@ -1,21 +1,21 @@
 {
   "name": "@mokahr/cache-manage-plugin",
-  "version": "1.0.0",
-  "description": "A webpack plugin used to mange dependencies loader/plugin cache",
+  "version": "1.0.1",
+  "description": "A webpack plugin used to mange muilti dependencies loader/plugin cache",
   "main": "CacheManagePlugin.js",
   "scripts": {
     "release": "sh ./release.sh"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/southerncross/unused-webpack-plugin.git"
+    "url": "git+https://github.com/wYuanHpp/cache-manage-plugin.git"
   },
   "author": "wYuanHpp",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/southerncross/unused-webpack-plugin/issues"
+    "url": "https://github.com/wYuanHpp/cache-manage-plugin/issues"
   },
-  "homepage": "https://github.com/southerncross/unused-webpack-plugin#readme",
+  "homepage": "https://github.com/wYuanHpp/cache-manage-plugin#readme",
   "devDependencies": {
     "@types/node": "^13.1.0",
     "@types/rimraf": "^2.0.3",
