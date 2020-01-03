@@ -4,13 +4,13 @@ import * as rimraf from 'rimraf';
 
 interface Options {
   /**
-   * Current working directory
+   * Current cache directory
    * @defaultValue ./
    */
   cacheRecordPath?: string;
   /**
-   * Included patterns
-   * @defaultValue ['**\/*.js', '**\/*.styl']
+   * cache hash
+   * @defaultValue node_modules/.cache
    */
   cacheHash?: string;
 
@@ -21,6 +21,7 @@ interface Options {
   maxAge?: number,
 
   /**
+   * need to manage cache directory
    * @defaultValue []
    */
   dependanceCachePaths?: string[],
@@ -36,8 +37,9 @@ class CacheManagePlugin {
   constructor(options: Options) {
     this.options = options || {};
     this.options.cacheRecordPath = this.options.cacheRecordPath || 'node_modules/.cache';
-    this.options.maxAge = this.options.maxAge || 10000
+    this.options.maxAge = this.options.maxAge || (1 * 24 * 60 * 60 * 1000) 
     this.options.cacheHash = this.options.cacheHash;
+    this.options.dependanceCachePaths = this.options.dependanceCachePaths || [];
     this.recordPath = this.options.cacheRecordPath + 'cacheRecord.json';
     this.apply = this.apply.bind(this);
   }
@@ -62,7 +64,7 @@ class CacheManagePlugin {
       this.options.dependanceCachePaths.forEach((_path) => {
         const fullPath = `${_path}/${hash}`;
 
-        console.log('removepath', fullPath)
+        console.log('remove overdue cache', fullPath)
           // 清除无效的record
         delete record[hash]; 
         if (fs.existsSync(path.resolve(fullPath))) {
@@ -83,7 +85,6 @@ class CacheManagePlugin {
 
   apply(compiler: any) {
     compiler.plugin('entryOption', () => {
-      console.log('begin')
       let record = this.getCacheRecord();
       record = this.removeOutTimeCache(record);
       this.updateRecord(this.options.cacheHash ,record);

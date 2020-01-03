@@ -1,56 +1,64 @@
-# unused-webpack-plugin
+# cache-manage-plugin
 
-A Webpack plugin used to find unused source files
+A Webpack plugin used to manage multiply cache Directory.
+
+Manage different code caches based on the hash.
 
 
 ## Usage
 
 1. Install dependency.
 
-`npm install --save-dev @mokahr/unused-webpack-plugin`
+`npm install --save-dev @mokahr/cache-manage-plugin`
 
 2. Update webpack config file.
 
 ```js
-const UnusedWebpackPlugin = require('@mokahr/unused-webpack-plugin');
+const CacheManage = require('@mokahr/cache-manage-plugin');
 
+const someHash = createHash();
 // your webpack config
 module.exports = {
+  module: {
+    rules: [
+      {
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: `node_modules/.cache/babel-loader/${someHash}`,
+        },
+      },
+    ]
+  }
   ...
   plugins: [
     ...
-    new UnusedWebpackPlugin(), // use the 'unused' plugin ;-)
+    new CacheManage({    // use
+      cacheHash: someHash, 
+      dependanceCachePaths: [`node_modules/.cache/babel-loader/${someHash}`],
+    }), 
   ]
 }
 ```
 
-3. Restart your webpack server and a new file named `unused-files` will be created under the project working directory.
-
 ## Configuration
 
 ```js
-new UnusedWebpackPlugin(options)
+new CacheManage(options)
 ```
 
-### [optional] options.cwd: string
+### [optional] options.cacheRecordPath: string
 
-Current working directory, default value is `./`
+cache directory, default value is `node_modules/.cache`
 
-### [optional] options.patterns: string[]
+### [optional] options.cacheHash: string
 
-Included glob pattern list, default value is `['**/*.js', '**/*.styl']`, which means only .js or .styl files will be checked.
+cacheHash mast  provide;
 
-Note: Usually not all the static assets are referenced in js files directly, such as some images or font files, therefore we do not recommend to use the pattern `*` directly, otherwise you may got some misleading results.
+### [optional] options.maxAge: number
 
-### [optional] options.ignores: string[]
+cache max age,  default value is `1 * 24 * 60 * 60 * 1000` one day
 
-Excluded glob pattern list, default value is `['node_modules/**']`
+### [optional] options.dependanceCachePaths: 
 
-### [optional] options.output: string
+need to manage cache's cacheDirectory list, default value is `[]` 
 
-The result file path, default value is `./unused-files`
-
-## Tips
-
-- Please do not use this plugin on production environment.
-- After generating unused files, you can remove them by shell command `cat unused-files | while read LINE; do rm $LINE; done`.
