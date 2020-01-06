@@ -24,7 +24,7 @@ interface Options {
    * need to manage cache directory
    * @defaultValue []
    */
-  dependanceCachePaths?: string[],
+  dependencyCachePaths?: string[],
 }
 
 interface Record {
@@ -39,7 +39,7 @@ class CacheManagePlugin {
     this.options.cacheRecordPath = this.options.cacheRecordPath || 'node_modules/.cache';
     this.options.maxAge = this.options.maxAge || (1 * 24 * 60 * 60 * 1000) 
     this.options.cacheHash = this.options.cacheHash;
-    this.options.dependanceCachePaths = this.options.dependanceCachePaths || [];
+    this.options.dependencyCachePaths = this.options.dependencyCachePaths || [];
     this.recordPath = this.options.cacheRecordPath + 'cacheRecord.json';
     this.apply = this.apply.bind(this);
   }
@@ -61,7 +61,7 @@ class CacheManagePlugin {
       }
     })
     needRemoveHashList.forEach((hash) => {
-      this.options.dependanceCachePaths.forEach((_path) => {
+      this.options.dependencyCachePaths.forEach((_path) => {
         const fullPath = `${_path}/${hash}`;
 
         console.log('remove overdue cache', fullPath)
