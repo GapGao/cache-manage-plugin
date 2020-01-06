@@ -34,7 +34,7 @@ module.exports = {
     ...
     new CacheManage({    // use
       cacheHash: someHash, 
-      dependanceCachePaths: [`node_modules/.cache/babel-loader/${someHash}`],
+      dependencyCachePaths: [`node_modules/.cache/babel-loader/${someHash}`],
     }), 
   ]
 }
@@ -50,7 +50,7 @@ new CacheManage(options)
 
 cache directory, default value is `node_modules/.cache`
 
-### [optional] options.cacheHash: string
+### [required] options.cacheHash: string
 
 cacheHash mast  provide;
 
@@ -58,7 +58,7 @@ cacheHash mast  provide;
 
 cache max age,  default value is `1 * 24 * 60 * 60 * 1000` one day
 
-### [optional] options.dependanceCachePaths: 
+### [optional] options.dependencyCachePaths: 
 
 need to manage cache's cacheDirectory list, default value is `[]` 
 

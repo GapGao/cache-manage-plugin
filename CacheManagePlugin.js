@@ -8,7 +8,7 @@ var CacheManagePlugin = (function () {
         this.options.cacheRecordPath = this.options.cacheRecordPath || 'node_modules/.cache';
         this.options.maxAge = this.options.maxAge || (1 * 24 * 60 * 60 * 1000);
         this.options.cacheHash = this.options.cacheHash;
-        this.options.dependanceCachePaths = this.options.dependanceCachePaths || [];
+        this.options.dependencyCachePaths = this.options.dependencyCachePaths || [];
         this.recordPath = this.options.cacheRecordPath + 'cacheRecord.json';
         this.apply = this.apply.bind(this);
     }
@@ -30,7 +30,7 @@ var CacheManagePlugin = (function () {
             }
         });
         needRemoveHashList.forEach(function (hash) {
-            _this.options.dependanceCachePaths.forEach(function (_path) {
+            _this.options.dependencyCachePaths.forEach(function (_path) {
                 var fullPath = _path + "/" + hash;
                 console.log('remove overdue cache', fullPath);
                 delete record[hash];
